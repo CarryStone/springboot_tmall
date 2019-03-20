@@ -14,17 +14,38 @@ public class HelloController {
 		
     //初始化跳转
 	@RequestMapping("/index")
-	public String hello() {
+	public String listCategory() {
 		return "admin/listCategory";
 	}
 	
 	@RequestMapping("admin_category_edit")
-	public String edit() {
+	public String editCategory() {
 		return "admin/editCategory";
 	}
 	
 	@RequestMapping("admin_property_list")
-	public String property() {
+	public String listProperty() {
 		return "admin/listProperty";
 	}
+	
+	@RequestMapping("admin_property_edit")
+	public String editProperty() {
+		return "admin/editProperty";
+	}
+	
+	@RequestMapping("admin_product_list")
+	public String listProduct(){
+		return "admin/listProduct";
+	}
+	
+	@RequestMapping("admin_product_edit")
+	public String editProduct() {
+		return "admin/editProduct";
+	}	
+	
+	@RequestMapping("admin_productImage_list")
+	public String listProductImage() {
+		return "admin/listProductImage";
+	}
+	
 }

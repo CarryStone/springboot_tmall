@@ -35,6 +35,33 @@
 		        return arrVal;
 		    }
 	    }	
+		
+		//判断是否数字 (小数和整数)
+	   function checkNumber(value, text){
+			
+			if(value.length==0){
+				alert(text+ "不能为空");
+				return false;
+			}
+			if(isNaN(value)){
+				alert(text+ "必须是数字");
+				return false;
+			}
+			return true;
+	   }
+	    //判断是否整数
+	   function checkInt(value, text){
+			
+			if(value.length==0){
+				alert(text+ "不能为空");
+				return false;
+			}
+			if(parseInt(value)!=value){
+				alert(text+ "必须是整数");
+				return false;
+			}
+			return true;
+	   } 
 	
 	   function checkEmpty(value,type){
 		   if(value==null||value.length==0){

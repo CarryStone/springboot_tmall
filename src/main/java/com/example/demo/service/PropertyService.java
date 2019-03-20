@@ -14,6 +14,10 @@ public interface PropertyService {
 	public void addProperty(Property property) throws Exception;
 	
 	public void deleteProperty(int id) throws Exception;
+	
+	public Property getPropertyById(int id) throws Exception;
+	
+	public Property updateProperty(Property property) throws Exception;
 		
 	
 }

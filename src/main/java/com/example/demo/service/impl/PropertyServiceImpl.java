@@ -36,4 +36,14 @@ public class PropertyServiceImpl implements PropertyService{
 		
 	}
 
+	@Override
+	public Property getPropertyById(int id) throws Exception {
+		return dao.findOne(id);	
+	}
+
+	@Override
+	public Property updateProperty(Property property) throws Exception {
+		return dao.save(property);
+	}
+
 }
