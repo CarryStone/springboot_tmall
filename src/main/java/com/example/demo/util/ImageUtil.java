@@ -9,6 +9,7 @@ import java.awt.image.DataBufferInt;
 import java.awt.image.DirectColorModel;
 import java.awt.image.PixelGrabber;
 import java.awt.image.Raster;
+import java.awt.image.RenderedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
@@ -18,14 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.pojo.Category;
-
 
 public class ImageUtil {
 
-	public static void saveImg(Category bean,MultipartFile image,HttpServletRequest request) throws IllegalStateException, IOException {
-		File imageFolder = new File(request.getServletContext().getRealPath("img/category"));
-		File file = new File(imageFolder,bean.getId()+".jpg");
+	public static void saveImg(int id,MultipartFile image,String folder,HttpServletRequest request) throws IllegalStateException, IOException {
+		File imageFolder = new File(request.getServletContext().getRealPath(folder));
+		File file = new File(imageFolder,id+".jpg");
 		if(!file.getParentFile().exists()) {
 			file.getParentFile().mkdirs();
 		}
@@ -33,9 +32,9 @@ public class ImageUtil {
 		image.transferTo(file);
 		//将文件转换成jpg格式
 		BufferedImage image2 = change2jpg(file);
-		ImageIO.write(image2, "jpg", file);
+		ImageIO.write(image2, "jpg", file);					
 	}
-	
+		
 	public static BufferedImage change2jpg(File f) {
         try {
             Image i = Toolkit.getDefaultToolkit().createImage(f.getAbsolutePath());
@@ -48,10 +47,35 @@ public class ImageUtil {
             WritableRaster raster = Raster.createPackedRaster(buffer, width, height, width, RGB_MASKS, null);
             BufferedImage img = new BufferedImage(RGB_OPAQUE, raster, false, null);
             return img;
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
+        } catch (InterruptedException e) {          
             e.printStackTrace();
             return null;
         }
+    }
+	
+	public static void resizeImage(File srcFile, int width,int height, File destFile) {
+        try {
+            if(!destFile.getParentFile().exists())
+                destFile.getParentFile().mkdirs();
+            Image i = ImageIO.read(srcFile);
+            i = resizeImage(i, width, height);
+            ImageIO.write((RenderedImage) i, "jpg", destFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+      
+    public static Image resizeImage(Image srcImage, int width, int height) {
+        try {
+  
+            BufferedImage buffImg = null;
+            buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            buffImg.getGraphics().drawImage(srcImage.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, null);
+  
+            return buffImg;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

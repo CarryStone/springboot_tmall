@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -21,7 +22,10 @@ public class Product {
 	
 	@ManyToOne
 	@JoinColumn(name="cid")
-	private Category category;
+	private Category category; 
+	
+	@Transient
+	private ProductImage image;
 	
 	private String name;
 	private String subTitle;
@@ -77,5 +81,13 @@ public class Product {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+	public ProductImage getImage() {
+		return image;
+	}
+	public void setImage(ProductImage image) {
+		this.image = image;
+	}
+	
+	
 		
 }

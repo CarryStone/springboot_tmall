@@ -32,8 +32,7 @@ public class PropertyServiceImpl implements PropertyService{
 
 	@Override
 	public void deleteProperty(int id) throws Exception {
-		dao.delete(id);
-		
+		dao.delete(id);		
 	}
 
 	@Override

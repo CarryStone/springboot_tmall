@@ -17,12 +17,16 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Autowired
 	private ProductDao dao;
+	@Autowired
+	private ProductImageServiceImpl impl; 
 	
 	@Override
 	public PageNavigator<Product> findByCategory(Category category,int page,int size) throws Exception{
 		 Pageable pageable = new PageRequest(page, size);
 		 Page<Product> pages = dao.findByCategory(category, pageable);
-		 return new PageNavigator<Product>(pages,5);
+		 PageNavigator<Product> pageNavigator =  new PageNavigator<Product>(pages,5);
+		 impl.setFirstProdutImages(pageNavigator.getContent());
+		 return pageNavigator;
 	}
 
 	@Override

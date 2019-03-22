@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.pojo.Category;
 import com.example.demo.service.CategoryService;
+import com.example.demo.util.Constants;
 import com.example.demo.util.ImageUtil;
 import com.example.demo.util.PageNavigator;
 
@@ -44,14 +45,14 @@ public class CategoryController {
 	@PostMapping("categories")
 	public Category add(Category bean,MultipartFile image,HttpServletRequest request) throws Exception{	
 		service.save(bean);
-		ImageUtil.saveImg(bean,image,request);
+		ImageUtil.saveImg(bean.getId(),image,Constants.category_folder,request);
 		return bean;
 	}
 	
 	@DeleteMapping("categories/{id}")
 	public String delete(@PathVariable("id") int id,HttpServletRequest request) throws Exception{
 		service.delete(id);
-		File imgfolder = new File(request.getServletContext().getRealPath("img/category"));
+		File imgfolder = new File(request.getServletContext().getRealPath(Constants.category_folder));
 		File file = new File(imgfolder,id+".jpg");
 		file.delete();
 		return null;
@@ -63,7 +64,7 @@ public class CategoryController {
 		bean.setName(name);
 		service.update(bean);
 		if(image!=null) {
-			ImageUtil.saveImg(bean,image,request);
+			ImageUtil.saveImg(bean.getId(),image,Constants.category_folder,request);
 		}
 		return bean;
 	}

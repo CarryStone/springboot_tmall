@@ -34,7 +34,7 @@ public class HelloController {
 	}
 	
 	@RequestMapping("admin_product_list")
-	public String listProduct(){
+	public String listProduct() {
 		return "admin/listProduct";
 	}
 	
@@ -46,6 +46,11 @@ public class HelloController {
 	@RequestMapping("admin_productImage_list")
 	public String listProductImage() {
 		return "admin/listProductImage";
+	}
+	
+	@RequestMapping("admin_propertyValue_edit")
+	public String editPropertyValue() {
+		return "admin/editPropertyValue";
 	}
 	
 }
