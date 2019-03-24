@@ -1,5 +1,7 @@
 package com.example.demo.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,6 +45,11 @@ public class PropertyServiceImpl implements PropertyService{
 	@Override
 	public Property updateProperty(Property property) throws Exception {
 		return dao.save(property);
+	}
+
+	@Override
+	public List<Property> findByCategory(Category category) throws Exception {
+		return dao.findByCategory(category);	
 	}
 
 }

@@ -53,4 +53,9 @@ public class HelloController {
 		return "admin/editPropertyValue";
 	}
 	
+	@RequestMapping("admin_user_list")
+	public String listUsers() {
+		return "admin/listUser";
+	}
+	
 }

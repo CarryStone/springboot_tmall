@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @JsonIgnoreProperties({ "handler","hibernateLazyInitializer"})
-public class ProductValue {
+public class PropertyValue {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

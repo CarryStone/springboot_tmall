@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 
+import java.util.List;
+
 import com.example.demo.pojo.Category;
 import com.example.demo.pojo.Property;
 import com.example.demo.util.PageNavigator;
@@ -18,6 +20,8 @@ public interface PropertyService {
 	public Property getPropertyById(int id) throws Exception;
 	
 	public Property updateProperty(Property property) throws Exception;
+	
+	public List<Property> findByCategory(Category category) throws Exception;
 		
 	
 }

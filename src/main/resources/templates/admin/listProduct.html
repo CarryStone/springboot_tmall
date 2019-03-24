@@ -10,13 +10,15 @@
     		uri:'Products',	
     		pagination:{},
     		beans:[],
-    		bean:{id:0,name:'',subTitle:'',originalPrice:499.00,discountPrice:299.00,stock:1365,category:{id:0}}
+    		bean:{id:0,name:'',subTitle:'',originalPrice:499.00,discountPrice:299.00,stock:1365,category:{id:0}},
+    		category:{}
     	};
     	var vue = new Vue({
     		el:'#workingArea',
     		data:data4Value,
     		mounted:function(){
     			this.list(0);
+    			this.getCategory();
     		},
     		methods:{
     			list:function(page){
@@ -24,6 +26,12 @@
     				axios.get(url).then(function(response){
     					vue.beans = response.data.content;
     					vue.pagination = response.data;
+    				});
+    			},
+    			getCategory:function(){
+    				var url = "categories/"+cid;
+    				axios.get(url).then(function(response){
+    					vue.category = response.data;
     				});
     			},
     			add:function(){
@@ -70,7 +78,8 @@
 
 <div id="workingArea" >
     <ol class="breadcrumb">
-        <li><a href="admin_category_list">所有分类</a></li>      
+        <li><a href="admin_category_list">所有分类</a></li>
+        <li><a :href="'admin_product_list?cid='+category.id">{{category.name}}</a></li>      
         <li class="active">产品管理</li>
     </ol>
  
