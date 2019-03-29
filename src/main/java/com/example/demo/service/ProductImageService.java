@@ -12,5 +12,9 @@ public interface ProductImageService {
 	public ProductImage addProductImage(ProductImage image) throws Exception;
 	
 	public void deleteProductImage(int id) throws Exception;
+	
+	public void setFirstProdutImages(List<Product> products) throws Exception;
+	
+	public void setFirstProdutImage(Product product) throws Exception;
 
 }

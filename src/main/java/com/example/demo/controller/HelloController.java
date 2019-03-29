@@ -58,4 +58,10 @@ public class HelloController {
 		return "admin/listUser";
 	}
 	
+	@RequestMapping("admin_order_list")
+	public String listOrders() {
+		return "admin/listOrder";
+	}
+	
+	
 }

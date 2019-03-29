@@ -31,12 +31,14 @@ public class ProductImageServiceImpl implements ProductImageService{
 		dao.delete(id);	
 	}
 	
+	@Override
 	public void setFirstProdutImages(List<Product> products) throws Exception {
 		for(Product product:products) {
 			setFirstProdutImage(product);
 		}
 	}
 	
+	@Override
 	public void setFirstProdutImage(Product product) throws Exception {
 		List<ProductImage> list = findProductImageByProduct(product,"single");
 		if(!list.isEmpty()) {
