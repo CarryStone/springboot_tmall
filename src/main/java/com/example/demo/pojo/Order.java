@@ -64,7 +64,7 @@ public class Order {
         	 statusDesc="待收货";
              break;
          case Constants.waitReview:
-        	 statusDesc="等评价";
+        	 statusDesc="待评价";
              break;
          case Constants.finish:
         	 statusDesc="完成";
