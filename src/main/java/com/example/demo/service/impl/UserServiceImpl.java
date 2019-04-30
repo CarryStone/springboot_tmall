@@ -24,5 +24,18 @@ public class UserServiceImpl implements UserService{
 		Page<User> pageFromJPA = dao.findAll(pageable);
 		return new PageNavigator<>(pageFromJPA, 5);		
 	}
+	
+	@Override
+	public User findUserByName(String name) throws Exception {		
+		return dao.findUserByName(name);
+	}
+
+	@Override
+	public void addUsers(User user) throws Exception {
+		dao.save(user);
+		
+	}
+
+	
 
 }

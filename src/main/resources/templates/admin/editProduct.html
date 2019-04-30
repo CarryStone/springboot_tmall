@@ -6,7 +6,7 @@
 <div th:replace="include/admin/adminNavigator::html" ></div>
 <script type="text/javascript">
     $(function(){
-    	var id = getUrlParms("id");
+    	var pid = getUrlParms("pid");
     	var data4Value = {
     		uri:'Products',	
     		listUrl:'admin_product_list',
@@ -20,7 +20,7 @@
     		},
     	    methods:{
     	    	get:function(){
-    	    		var url = this.uri+"/"+id;
+    	    		var url = this.uri+"/"+pid;
     	    		axios.get(url).then(function(response){
     	    			vue.bean = response.data;
     	    		});

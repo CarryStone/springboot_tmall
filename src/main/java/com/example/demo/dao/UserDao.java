@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.pojo.User;
 
 public interface UserDao extends JpaRepository<User, Integer>{
+	
+	public User findUserByName(String name) throws Exception;
 
 }

@@ -22,8 +22,7 @@ public class Product {
 	private int id;
 	
 	@ManyToOne
-	@JoinColumn(name="cid")
-	@JsonBackReference
+	@JoinColumn(name="cid")	
 	private Category category; 
 	
 	@Transient

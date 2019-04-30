@@ -14,6 +14,7 @@ import com.example.demo.dao.ProductDao;
 import com.example.demo.pojo.Category;
 import com.example.demo.pojo.Product;
 import com.example.demo.service.CategoryService;
+import com.example.demo.service.ProductImageService;
 import com.example.demo.util.PageNavigator;
 
 @Service
@@ -23,6 +24,8 @@ public class CategoryServiceImpl implements CategoryService{
 	private CategoryDao dao;
 	@Autowired
 	private ProductDao productdao;
+	@Autowired
+	private ProductImageService imageservice;
 	
 	public PageNavigator<Category> getCategoryList(int page,int size) throws Exception{
 		Pageable pageable = new PageRequest(page, size);
@@ -61,7 +64,13 @@ public class CategoryServiceImpl implements CategoryService{
 	public void fill(List<Category> list) throws Exception {
 		for(Category category:list) {
 			List<Product> listProduct = productdao.findByCategory(category);
+			imageservice.setFirstProdutImages(listProduct);
+			//防止无限递归
+			for(Product p: listProduct) {
+				p.setCategory(null);
+			}
 			category.setProducts(listProduct);
+			
 		}	
 	}
 
@@ -76,7 +85,12 @@ public class CategoryServiceImpl implements CategoryService{
 				List<Product> product = listProduct.subList(i, productByRow);
 				listProductByRow.add(product);
 			}
-			category.setProductsByRow(listProductByRow);
+			for(List<Product> listProducts:listProductByRow) {
+				for(Product product:listProducts) {
+					product.setCategory(null);
+				}
+			}
+			category.setProductsByRow(listProductByRow);		
 		}
 		
 	}

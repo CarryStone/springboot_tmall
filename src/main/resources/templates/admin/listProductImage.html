@@ -6,7 +6,7 @@
 <div th:replace="include/admin/adminNavigator::html" ></div>
 <script>
     $(function(){
-    	var pid = getUrlParms('pid');
+    	var pid = getUrlParms('pid');     	
     	var data4Vue = {
     		uri:'ProductImages',
     		singleProductImages:[],
@@ -28,7 +28,7 @@
     			getProduct:function(){
     				var url = "Products/"+pid;
     				axios.get(url).then(function(response){
-    					vue.product = response.data;
+    					vue.product = response.data;  				
     				});
     			},
     			listSingle:function(){

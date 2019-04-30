@@ -43,8 +43,8 @@ public class ProductController {
 		return null;
 	}
 	
-	@GetMapping("Products/{id}")
-	public Product get(@PathVariable("id") int id) throws Exception{
+	@GetMapping("Products/{pid}")
+	public Product get(@PathVariable("pid") int id) throws Exception{		
 	    return service.findProductById(id);	
 	}
 	
