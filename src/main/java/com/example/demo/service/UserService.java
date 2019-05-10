@@ -10,5 +10,7 @@ public interface UserService {
 	public User findUserByName(String name) throws Exception;
 	
 	public void addUsers(User user) throws Exception;
+	
+	public User get(String name,String password) throws Exception;
 
 }

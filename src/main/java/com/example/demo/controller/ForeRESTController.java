@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,8 +34,7 @@ public class ForeRESTController {
 	}
 	
 	@PostMapping("foreregister")
-	public Object register(@RequestBody User user) throws Exception {
-		
+	public Object register(@RequestBody User user) throws Exception {	
 		String name = HtmlUtils.htmlEscape(user.getName());
 		user.setName(name);
 		User users = userservice.findUserByName(name);
@@ -46,4 +47,16 @@ public class ForeRESTController {
 	}
 	
 	
+	@PostMapping("forelogin")
+	public Object login(@RequestBody User user,HttpSession session) throws Exception {	
+		String name = HtmlUtils.htmlEscape(user.getName());	
+		User users = userservice.get(name,user.getPassword());
+		if(users==null) {
+			String message = "用户名或密码错误";
+			return new Result(Result.FAILURE_CODE,message);
+		}
+		session.setAttribute("user", users);
+		return new Result(Result.SUCCESS_CODE,null);
+	}
+		
 }

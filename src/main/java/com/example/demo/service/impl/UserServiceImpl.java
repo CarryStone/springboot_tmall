@@ -32,8 +32,12 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void addUsers(User user) throws Exception {
-		dao.save(user);
-		
+		dao.save(user);	
+	}
+
+	@Override
+	public User get(String name, String password) throws Exception {
+		return dao.getByNameAndPassword(name,password);		
 	}
 
 	
