@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import com.example.demo.pojo.Category;
 import com.example.demo.pojo.Product;
 import com.example.demo.util.PageNavigator;
@@ -15,4 +17,8 @@ public interface ProductService {
 	public Product findProductById(int id) throws Exception;
 	
 	public Product updateProduct(Product product) throws Exception;
+	
+	public void SetSaleCountAndReviewNumber(List<Product> list) throws Exception;
+	
+	public void SetSaleCountAndReviewNumber(Product product) throws Exception;
 }

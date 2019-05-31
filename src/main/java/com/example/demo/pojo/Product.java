@@ -1,6 +1,7 @@
 package com.example.demo.pojo;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,14 @@ public class Product {
 	
 	@Transient
 	private ProductImage image;
+	@Transient
+	private List<ProductImage> productSingleImages;
+	@Transient
+	private List<ProductImage> productDetailImages;
+	@Transient
+	private int saleCount;
+	@Transient
+	private int reviewCount;
 	
 	private String name;
 	private String subTitle;
@@ -88,7 +97,30 @@ public class Product {
 	public void setImage(ProductImage image) {
 		this.image = image;
 	}
-	
-	
+	public List<ProductImage> getProductSingleImages() {
+		return productSingleImages;
+	}
+	public void setProductSingleImages(List<ProductImage> productSingleImages) {
+		this.productSingleImages = productSingleImages;
+	}
+	public List<ProductImage> getProductDetailImages() {
+		return productDetailImages;
+	}
+	public void setProductDetailImages(List<ProductImage> productDetailImages) {
+		this.productDetailImages = productDetailImages;
+	}
+	public int getSaleCount() {
+		return saleCount;
+	}
+	public void setSaleCount(int saleCount) {
+		this.saleCount = saleCount;
+	}
+	public int getReviewCount() {
+		return reviewCount;
+	}
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+		
 		
 }

@@ -21,5 +21,7 @@ public interface CategoryService {
 	
 	public void fill(List<Category> listCategory) throws Exception;
 	
+	public void fill(Category category) throws Exception;
+	
 	public void fillByRow(List<Category> listCategory) throws Exception;
 }

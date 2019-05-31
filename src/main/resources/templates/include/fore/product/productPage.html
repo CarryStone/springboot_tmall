@@ -1,0 +1,55 @@
+<div th:fragment="html">
+<script>
+    $(function(){
+    	var pid = getUrlParams("pid");
+    	var data4Vue = {
+    	    uri:'foreproduct',
+    	    p:{},
+    	    pvs:[],
+    	    reviews:[],    	    
+    	    user:{name:'',password:''},
+    	    showDetail:true,
+            showReview:false
+    	};
+    	var vue = new Vue({
+    		el: '#workingArea',  		
+    		data:data4Vue,
+    		mounted:function(){
+    			linkDefaultActions();
+    			this.load();
+    		},
+    		methods:{
+    			load:function(){  				
+    				var url = this.uri+"/"+pid;
+    				axios.get(url).then(function(response){  					
+    					var map = response.data;    					
+    					vue.p = map.product;
+    					vue.pvs = map.pvs;
+    					vue.reviews = map.reviews;   					
+    					imgAndInfoPageRegisterListeners(vue);
+    				});   				    				
+    			},
+    			toggle2Detail:function(){
+                    this.showDetail=true;
+                    this.showReview=false;
+                },
+                toggle2Review:function(){
+                    this.showDetail=false;
+                    this.showReview=true;
+                }
+    		}
+    	});
+    });
+</script>
+
+
+<title>模仿天猫官网 -- {{p.name}}</title>
+    <div class="categoryPictureInProductPageDiv">
+        <img v-if="p.category!=null" class="categoryPictureInProductPage" :src="'img/category/'+p.category.id+'.jpg'">
+    </div>
+    <div class="productPageDiv">
+        <div th:replace="include/fore/product/imgAndInfo::html" ></div>
+        <div th:replace="include/fore/product/productReview::html" ></div>
+        <div th:replace="include/fore/product/productDetail::html" ></div>
+    </div>   
+</div>

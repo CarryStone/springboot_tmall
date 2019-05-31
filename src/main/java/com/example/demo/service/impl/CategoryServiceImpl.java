@@ -73,6 +73,17 @@ public class CategoryServiceImpl implements CategoryService{
 			
 		}	
 	}
+	
+	@Override
+	public void fill(Category category) throws Exception {
+		List<Product> listProduct = productdao.findByCategory(category);
+		imageservice.setFirstProdutImages(listProduct);
+		//防止无限递归
+		for(Product p: listProduct) {
+			p.setCategory(null);
+		}
+		category.setProducts(listProduct);
+	}
 
 	@Override
 	public void fillByRow(List<Category> list) throws Exception {
@@ -94,5 +105,7 @@ public class CategoryServiceImpl implements CategoryService{
 		}
 		
 	}
+
+	
 		
 }

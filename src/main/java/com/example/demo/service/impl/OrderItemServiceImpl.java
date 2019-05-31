@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dao.OrderItemDao;
 import com.example.demo.pojo.Order;
 import com.example.demo.pojo.OrderItem;
+import com.example.demo.pojo.Product;
 import com.example.demo.service.OrderItemService;
 import com.example.demo.service.ProductImageService;
 
@@ -36,6 +37,19 @@ public class OrderItemServiceImpl implements OrderItemService{
 			order.setTotalNumber(totalNumber);
 		}
 		
+	}
+
+	//获取商品销量，没有订单和支付日期的排除
+	@Override
+	public int getSaleCount(Product product) throws Exception {
+		List<OrderItem> itemlist = dao.findByProduct(product);
+		int count = 0;
+		for(OrderItem oi:itemlist) {
+			if(null!= oi.getOrder() && null!=oi.getOrder().getPayDate()) {
+				count += oi.getNumber();
+			}		
+		}
+		return count;
 	}
 
 }

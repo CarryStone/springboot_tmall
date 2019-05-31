@@ -19,7 +19,7 @@
 		   for(i in arrPara){
 			   var paramPre = param+"=";
 			   if(arrPara[i].indexOf(paramPre)==0&paramPre.length<arrPara[i].length){
-				   arrVal[0] = decodeURI(arraPara[i].subStr(paramPre.length));
+				   arrVal[0] = decodeURI(arrPara[i].substr(paramPre.length));
 			   }
 		   }
 	   }

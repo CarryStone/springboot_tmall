@@ -1,5 +1,7 @@
 package com.example.demo.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,7 +11,9 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dao.ProductDao;
 import com.example.demo.pojo.Category;
 import com.example.demo.pojo.Product;
+import com.example.demo.service.OrderItemService;
 import com.example.demo.service.ProductService;
+import com.example.demo.service.ReviewService;
 import com.example.demo.util.PageNavigator;
 
 @Service
@@ -19,6 +23,10 @@ public class ProductServiceImpl implements ProductService{
 	private ProductDao dao;
 	@Autowired
 	private ProductImageServiceImpl impl; 
+	@Autowired
+	private ReviewService reviewservice;
+	@Autowired
+	private OrderItemService orderitemservice;
 	
 	@Override
 	public PageNavigator<Product> findByCategory(Category category,int page,int size) throws Exception{
@@ -49,7 +57,25 @@ public class ProductServiceImpl implements ProductService{
 	public Product updateProduct(Product product) throws Exception {
 		return dao.save(product);
 	}
-	
-	
 
+	@Override
+	public void SetSaleCountAndReviewNumber(Product product) throws Exception {
+		int reviewCount = reviewservice.getReviewCount(product);
+		product.setReviewCount(reviewCount);
+		
+		int saleCount = orderitemservice.getSaleCount(product);
+		product.setSaleCount(saleCount);	
+	}
+
+	@Override
+	public void SetSaleCountAndReviewNumber(List<Product> list) throws Exception {
+		for(Product product:list) {
+			int reviewCount = reviewservice.getReviewCount(product);
+			product.setReviewCount(reviewCount);
+			
+			int saleCount = orderitemservice.getSaleCount(product);
+			product.setSaleCount(saleCount);	
+		}		
+	}
+	
 }

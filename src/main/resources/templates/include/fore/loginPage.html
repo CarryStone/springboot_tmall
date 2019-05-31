@@ -17,12 +17,12 @@
                     login:function(){
                         var url =  this.uri;
                         if(0==this.user.name.length){
-                            $("span.errorMessage").html("ÇëÊäÈëÓÃ»§Ãû");
+                            $("span.errorMessage").html("è¯·è¾“å…¥ç”¨æˆ·å");
                             $("div.loginErrorMessageDiv").css("visibility","visible");
                             return;
                         }
                         if(0==this.user.password.length){
-                            $("span.errorMessage").html("ÇëÊäÈëÃÜÂë");
+                            $("span.errorMessage").html("è¯·è¾“å…¥å¯†ç ");
                             $("div.loginErrorMessageDiv").css("visibility","visible");
                             return;
                         }
@@ -59,27 +59,27 @@
                 </div>
             </div>
  
-            <div class="login_acount_text">ÕË»§µÇÂ¼</div>
+            <div class="login_acount_text">è´¦æˆ·ç™»å½•</div>
             <div class="loginInput " >
                     <span class="loginInputIcon ">
                         <span class=" glyphicon glyphicon-user"></span>
                     </span>
-                <input v-model="user.name" placeholder="ÊÖ»ú/»áÔ±Ãû/ÓÊÏä" type="text">
+                <input v-model="user.name" placeholder="æ‰‹æœº/ä¼šå‘˜å/é‚®ç®±" type="text">
             </div>
  
             <div class="loginInput " >
                     <span class="loginInputIcon ">
                         <span class=" glyphicon glyphicon-lock"></span>
                     </span>
-                <input v-model="user.password" type="password" placeholder="ÃÜÂë">
+                <input v-model="user.password" type="password" placeholder="å¯†ç ">
             </div>
-            <span class="text-danger">²»ÒªÊäÈëÕæÊµµÄÌìÃ¨ÕËºÅÃÜÂë</span><br><br>
+            <span class="text-danger">ä¸è¦è¾“å…¥çœŸå®çš„å¤©çŒ«è´¦å·å¯†ç </span><br><br>
             <div>
-                <a class="notImplementLink" href="#nowhere">Íü¼ÇµÇÂ¼ÃÜÂë</a>
-                <a href="register" class="pull-right">Ãâ·Ñ×¢²á</a>
+                <a class="notImplementLink" href="#nowhere">å¿˜è®°ç™»å½•å¯†ç </a>
+                <a href="register" class="pull-right">å…è´¹æ³¨å†Œ</a>
             </div>
             <div style="margin-top:20px">
-                <button class="btn btn-block redButton" type="button" @click="login">µÇÂ¼</button>
+                <button class="btn btn-block redButton" type="button" @click="login">ç™»å½•</button>
             </div>
         </div>
     </div>
