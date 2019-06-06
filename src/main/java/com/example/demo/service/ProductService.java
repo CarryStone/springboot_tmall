@@ -21,4 +21,6 @@ public interface ProductService {
 	public void SetSaleCountAndReviewNumber(List<Product> list) throws Exception;
 	
 	public void SetSaleCountAndReviewNumber(Product product) throws Exception;
+	
+	public List<Product> search(String keyword, int start, int size) throws Exception;
 }

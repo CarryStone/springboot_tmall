@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ProductDao;
@@ -76,6 +77,14 @@ public class ProductServiceImpl implements ProductService{
 			int saleCount = orderitemservice.getSaleCount(product);
 			product.setSaleCount(saleCount);	
 		}		
+	}
+
+	@Override
+	public List<Product> search(String keyword, int start, int size) throws Exception {
+		Sort sort = new Sort(Sort.Direction.DESC,"id");
+		Pageable pageable = new PageRequest(start, size, sort);
+		List<Product> products = dao.findByNameLike("%"+keyword+"%",pageable);	
+		return products;
 	}
 	
 }

@@ -151,6 +151,18 @@ public class ForeRESTController {
 		return c;
 	}
 	
+	@GetMapping("foresearch")
+	public List<Product> search(String keyword) throws Exception {
+		if(null==keyword)
+	        keyword = "";
+		List<Product> ps= productservice.search(keyword,0,20);
+		productimageservice.setFirstProdutImages(ps);
+		productservice.SetSaleCountAndReviewNumber(ps);
+		return ps;
+	}
+	
+	
+	
 	
 		
 }

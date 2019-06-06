@@ -49,4 +49,9 @@ public class ForePageController {
     public String category(){
         return "fore/category";
     }
+	
+	@GetMapping("search")
+	public String search(){
+        return "fore/searchResult";
+    }
 }

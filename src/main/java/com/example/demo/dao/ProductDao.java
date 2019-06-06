@@ -14,4 +14,6 @@ public interface ProductDao extends JpaRepository<Product, Integer>{
 	public Page<Product> findByCategory(Category category,Pageable page) throws Exception;
 	
 	public List<Product> findByCategory(Category category) throws Exception;
+	
+	public List<Product> findByNameLike(String keyword, Pageable pageable);
 }
