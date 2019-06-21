@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import com.example.demo.pojo.OrderItem;
 import com.example.demo.pojo.Product;
 import com.example.demo.pojo.ProductImage;
 
@@ -16,5 +17,7 @@ public interface ProductImageService {
 	public void setFirstProdutImages(List<Product> products) throws Exception;
 	
 	public void setFirstProdutImage(Product product) throws Exception;
+	
+	public void setFirstProdutImagesOnOrderItems(List<OrderItem> orderitems) throws Exception;
 
 }

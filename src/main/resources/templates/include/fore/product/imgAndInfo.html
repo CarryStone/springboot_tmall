@@ -52,7 +52,13 @@
 		   var url = 'forecheckLogin';
 		   axios.get(url).then(function(response) {
 			   if(0==response.data.code){
-				   
+				   var pid = vue.p.id;
+				   var num= $(".productNumberSetting").val();
+				   var url =  "forebuyone?pid="+pid+"&num="+num;
+				   axios.get(url).then(function(response) {
+		                var oiid = response.data;
+		                location.href="buy?oiid="+oiid;
+		             });   
 			   }else{
 				   $('#loginModal').modal('show');
 			   }
@@ -64,7 +70,15 @@
 		   var url = 'forecheckLogin';
 		   axios.get(url).then(function(response) {
 			   if(0==response.data.code){
-				   
+				   var pid = vue.p.id;
+		           var num= $(".productNumberSetting").val();
+		           var url =  "foreaddCart?pid="+pid+"&num="+num;
+		           axios.get(url).then(function(response) {
+		                 var result = response.data;		                 
+		                 if(0==result){
+		                	 alert("成功加入购物车");	                     
+		                 }
+		             });
 			   }else{
 				   $('#loginModal').modal('show');
 			   }

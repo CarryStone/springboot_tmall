@@ -9,6 +9,7 @@ import com.example.demo.dao.OrderItemDao;
 import com.example.demo.pojo.Order;
 import com.example.demo.pojo.OrderItem;
 import com.example.demo.pojo.Product;
+import com.example.demo.pojo.User;
 import com.example.demo.service.OrderItemService;
 import com.example.demo.service.ProductImageService;
 
@@ -50,6 +51,35 @@ public class OrderItemServiceImpl implements OrderItemService{
 			}		
 		}
 		return count;
+	}
+
+	@Override
+	public List<OrderItem> listByUser(User user) throws Exception {
+		//根据用户找到订单项，并且没有生成订单
+		return dao.findByUserAndOrderIsNull(user);
+	}
+
+	@Override
+	public void update(OrderItem item) throws Exception {
+		dao.save(item);
+		
+	}
+
+	@Override
+	public void add(OrderItem item) throws Exception {
+		dao.save(item);
+		
+	}
+
+	@Override
+	public OrderItem get(int id) throws Exception {		
+		return dao.findOne(id);
+	}
+
+	@Override
+	public void delete(int id) throws Exception {
+	    dao.delete(id);
+		
 	}
 
 }
