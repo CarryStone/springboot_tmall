@@ -1,5 +1,6 @@
 package com.example.demo.pojo;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @JsonIgnoreProperties({ "handler","hibernateLazyInitializer" })
-public class Category {
+public class Category implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

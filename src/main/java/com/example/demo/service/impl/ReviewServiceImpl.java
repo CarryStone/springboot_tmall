@@ -26,4 +26,10 @@ public class ReviewServiceImpl implements ReviewService{
 		return dao.countByProduct(product);
 	}
 
+	@Override
+	public void add(Review review) throws Exception {
+		dao.save(review);
+		
+	}
+
 }

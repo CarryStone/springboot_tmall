@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.HtmlUtils;
@@ -360,7 +361,7 @@ public class ForeRESTController {
 	 * @return
 	 * @throws Exception
 	 */
-	@GetMapping("forecreateOrder")
+	@PostMapping("forecreateOrder")
 	public Map<String,Object> createOrder(@RequestBody Order order,HttpSession session) throws Exception{
 		User user =(User)  session.getAttribute("user");
 		String orderCode = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + RandomUtils.nextInt(10000);
@@ -397,6 +398,101 @@ public class ForeRESTController {
 	}
 	
 	
+	/**
+	 * 我的订单
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("forebought")
+	public Object bought(HttpSession session) throws Exception{
+		User user =(User) session.getAttribute("user");
+		List<Order> os= orderservice.listByUserWithoutDelete(user);
+		orderservice.removeOrderFromOrderItem(os);
+		return os;
+	}
 	
-			
+	
+	/**
+	 * 跳转到确认收货页面
+	 * @param oid
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("foreconfirmPay")
+	public Object confirmPay(int oid) throws Exception{
+		Order order = orderservice.getOrderById(oid);
+		orderitemservice.fill(order);
+		orderservice.removeOrderFromOrderItem(order);
+		return order;
+	}
+	
+	
+	/**
+	 * 确认收货，状态改为待评价
+	 * @param oid
+	 * @throws Exception
+	 */
+	@GetMapping("foreorderConfirmed")
+	public void orderConfirmed(int oid) throws Exception{
+	    Order order = orderservice.getOrderById(oid);
+	    order.setStatus(Constants.waitReview);
+	    order.setConfirmDate(new Date());
+	    orderservice.updateOrder(order);	    
+	}
+	
+	
+	/**
+	 * 删除订单
+	 * @param oid
+	 * @throws Exception
+	 */
+	@PutMapping("foredeleteOrder")
+	public void deleteOrder(int oid) throws Exception{
+		Order order = orderservice.getOrderById(oid);
+		order.setStatus(Constants.delete);
+		orderservice.updateOrder(order);	   
+	}
+	
+	
+	/**
+	 * 加载产品评价页面
+	 * @param oid
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("forereview")
+	public Map<String,Object> review(int oid) throws Exception{
+		Order o = orderservice.getOrderById(oid);
+		orderitemservice.fill(o);
+		orderservice.removeOrderFromOrderItem(o);
+		Product p = o.getOrderItems().get(0).getProduct();
+		List<Review> reviews = reviewservice.list(p);
+		productservice.SetSaleCountAndReviewNumber(p);
+		Map<String,Object> map = new HashMap<>();
+		map.put("p", p);
+		map.put("o", o);
+		map.put("reviews", reviews);
+		return map;
+	}
+	
+	
+	@PostMapping("foredoreview")
+	public Object doreview( HttpSession session,int oid,int pid,String content) throws Exception{
+		Order o = orderservice.getOrderById(oid);
+		o.setStatus(Constants.finish);
+		orderservice.updateOrder(o);
+		
+		Product p = productservice.findProductById(pid);
+		content = HtmlUtils.htmlEscape(content);
+		User user = (User)session.getAttribute("user");
+		Review review = new Review();
+		review.setContent(content);
+		review.setProduct(p);
+		review.setCreateDate(new Date());
+		review.setUser(user);
+		reviewservice.add(review);
+		return Result.SUCCESS_CODE;
+	}
+	
 }

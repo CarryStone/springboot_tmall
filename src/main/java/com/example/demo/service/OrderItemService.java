@@ -22,5 +22,7 @@ public interface OrderItemService {
 	public OrderItem get(int id) throws Exception;
 	
 	public void delete(int id) throws Exception;
-
+	
+	public void fill(Order order) throws Exception;
+		
 }

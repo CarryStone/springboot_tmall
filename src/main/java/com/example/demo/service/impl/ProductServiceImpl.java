@@ -86,5 +86,10 @@ public class ProductServiceImpl implements ProductService{
 		List<Product> products = dao.findByNameLike("%"+keyword+"%",pageable);	
 		return products;
 	}
+
+	@Override
+	public List<Product> findByCategory(Category category) throws Exception {
+		return dao.findByCategory(category);
+	}
 	
 }

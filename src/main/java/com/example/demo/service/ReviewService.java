@@ -10,4 +10,6 @@ public interface ReviewService {
 	public List<Review> list(Product product) throws Exception;
 	
 	public int getReviewCount(Product product) throws Exception;
+	
+	public void add(Review review) throws Exception;
 }

@@ -1,11 +1,12 @@
 package com.example.demo.util;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
 
-public class PageNavigator<T> {
+public class PageNavigator<T> implements Serializable{
 	
 	int navigatePages;
     
@@ -30,6 +31,10 @@ public class PageNavigator<T> {
     boolean isHasPrevious;
       
     int[] navigatepageNums;
+    
+    
+
+	public PageNavigator() {}
 
 	public PageNavigator(Page<T> pageFromJPA,int navigatePages){
 	    this.navigatePages = navigatePages;

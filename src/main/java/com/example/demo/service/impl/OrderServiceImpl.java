@@ -15,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.dao.OrderDao;
 import com.example.demo.pojo.Order;
 import com.example.demo.pojo.OrderItem;
+import com.example.demo.pojo.User;
 import com.example.demo.service.OrderItemService;
 import com.example.demo.service.OrderService;
+import com.example.demo.util.Constants;
 import com.example.demo.util.PageNavigator;
 
 @Service
@@ -56,7 +58,27 @@ public class OrderServiceImpl implements OrderService{
 			service.update(oi);
 		}		
 	}
-	
-	
 
+	@Override
+	public List<Order> listByUserWithoutDelete(User user) throws Exception {
+		List<Order> orders = dao.findByUserAndStatusNotOrderByIdDesc(user, Constants.delete);
+		service.findByOrder(orders);
+		return orders;
+	}
+
+	@Override
+	public void removeOrderFromOrderItem(List<Order> orders) throws Exception {
+		for(Order order:orders) {
+			removeOrderFromOrderItem(order);
+		}		
+	}
+
+	@Override
+	public void removeOrderFromOrderItem(Order order) throws Exception {
+		List<OrderItem> orderitems = order.getOrderItems();
+	    for(OrderItem item:orderitems) {
+	    	item.setOrder(null);
+	    }		
+	}
+	
 }
